@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>media.alera.osgi.core</groupId>
+		<artifactId>core-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<name>OSGi Core Initilization</name>
+	<artifactId>core-init</artifactId>
+	<properties>
+	    <package.name>init</package.name>
+		<dotenv.version>2.2.4</dotenv.version>
+    </properties>
+	<dependencies>
+		<dependency>
+		    <groupId>org.osgi</groupId>
+		    <artifactId>org.osgi.service.component.annotations</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.osgi</groupId>
+		    <artifactId>org.osgi.service.component</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<!-- <dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+		</dependency> -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.gogo.command</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.platform</groupId>
+			<artifactId>org.eclipse.core.runtime</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>io.github.cdimascio</groupId>
+		    <artifactId>dotenv-java</artifactId>
+		    <version>${dotenv.version}</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.platform</groupId>
+			<artifactId>org.eclipse.equinox.console</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.eclipse.platform</groupId>
+		    <artifactId>org.eclipse.equinox.console.ssh</artifactId>
+		</dependency>
+ </dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-maven-plugin</artifactId>
+				<configuration>
+					<bnd><![CDATA[
+${osgi.core.bundle.headers}
+-sources: false
+Include-Resource: lib/dotenv-java-${dotenv.version}.jar
+Bundle-ClassPath: .,dotenv-java-${dotenv.version}.jar
+]]></bnd>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
