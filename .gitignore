@@ -1,1 +1,3 @@
 **/target/**
+core-app/conf/hostkey.ser
+core-app/conf/equinox_authorized_keys

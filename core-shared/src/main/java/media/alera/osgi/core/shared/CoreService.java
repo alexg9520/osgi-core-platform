@@ -23,5 +23,5 @@ public class CoreService implements EventHandler {
     public void handleEvent(Event event) {
         throw new UnsupportedOperationException("Unimplemented method 'handleEvent'");
     }
-
+    
 }
