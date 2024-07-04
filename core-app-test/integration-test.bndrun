@@ -1,0 +1,45 @@
+-standalone.integration-test: target/index.xml;name="app-test"
+
+-include: ./../core-app/core-app.bndrun
+
+#	logback.configurationFile=file:${.}/logback.xml
+
+# -javaagent: false
+
+-runproperties.integration-test: 
+
+-tester: biz.aQute.tester.junit-platform
+
+-runvm.integration-test: \
+	-Dmedia.alera.osgi.core.env.folder=${.},\n\
+	-Dmedia.alera.osgi.core.working.folder=${.},\n\
+	-Dtester.trace=true,\n\
+	-Dtester.dir=${.}/target/surefire-reports,\n\
+	-Dlaunch.services=true
+#	-javaagent:"${repo;org.jacoco:org.jacoco.agent:jar:runtime;0.8.12}"
+# 	-javaagent:${user.home}/.m2/repository/org/jacoco/org.jacoco.agent/0.8.12/org.jacoco.agent-0.8.12-runtime.jar=destfile=${.}/target/jacoco.exec
+#   -javaagent:${m2.location}/.m2/repository/org/jacoco/org.jacoco.agent/0.8.12/org.jacoco.agent-0.8.12-runtime.jar=destfile=${.}/target/jacoco.exec
+
+#	-Dtester.continuous=true,\n\
+#	-Dmedia.alera.osgi.core.env.name=env.testing,\n\
+
+-runblacklist.integration-test: \
+	bnd.identity;id='biz.aQute.tester'
+
+-runrequires.integration-test: \
+	bnd.identity;id='media.alera.osgi.core.app-test',\
+	bnd.identity;id='junit-platform-commons',\
+	bnd.identity;id='junit-jupiter-api',\
+	bnd.identity;id='junit-jupiter-engine'
+
+# Used by Objenesis/Mockito and not actually optional
+-runsystempackages: sun.reflect
+
+-runbundles.integration-test: \
+	media.alera.osgi.core.app-test,\
+	junit-jupiter-api,\
+	junit-jupiter-engine,\
+	junit-platform-commons,\
+	junit-platform-engine,\
+	junit-platform-launcher,\
+	org.opentest4j
