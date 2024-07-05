@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: Core OSGi Build
 
 on:
   push:
@@ -28,7 +28,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B -P coverage,index-export package -Dingest.bundle.version=0.1.0 --file pom.xml
+      run: mvn -B -P coverage,index-export package -Dosgi.core.bundle.version=0.1.0 --file pom.xml
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag osgi-core-app:$(date +%s)
 

@@ -2,7 +2,7 @@
 <!DOCTYPE xml>
 <configuration debug="false">
 
-	<property name="LOGDIR" value="${user.home}/.darklight/log" />
+	<property name="LOGDIR" value="${user.home}/.core-app/log" />
 
 	<appender name="STDOUT"
 		class="ch.qos.logback.core.ConsoleAppender">
@@ -12,12 +12,12 @@
 	</appender>
 
 	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOGDIR}/darklight.log</file>
+		<file>${LOGDIR}/core-app.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
 		</encoder>
 		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-			<FileNamePattern>${LOGDIR}/darklight.%i.log.zip</FileNamePattern>
+			<FileNamePattern>${LOGDIR}/core-app.%i.log.zip</FileNamePattern>
 			<MinIndex>1</MinIndex>
 			<MaxIndex>10</MaxIndex>
 		</rollingPolicy>
