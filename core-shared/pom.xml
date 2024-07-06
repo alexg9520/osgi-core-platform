@@ -209,6 +209,14 @@
       <plugin>
         <groupId>biz.aQute.bnd</groupId>
         <artifactId>bnd-maven-plugin</artifactId>
+        <configuration>
+          <bnd><![CDATA[
+${osgi.core.bundle.headers}
+-sources: false
+Include-Resource: lib/jsonschema-generator-${schema.version}.jar,lib/jsonschema-module-jackson-${schema.version}.jar
+Bundle-ClassPath: .,jsonschema-generator-${schema.version}.jar,jsonschema-module-jackson-${schema.version}.jar
+          ]]></bnd>
+				</configuration>
       </plugin>
     </plugins>
   </build>

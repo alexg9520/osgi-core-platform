@@ -21,11 +21,11 @@
 		<slf4j.version>2.0.13</slf4j.version>
 		<logback.version>1.4.14</logback.version>
 		<junit-jupiter.version>5.10.2</junit-jupiter.version>
-    	<junit-platform.version>1.10.2</junit-platform.version>
+    <junit-platform.version>1.10.2</junit-platform.version>
 		<assertj.version>3.25.3</assertj.version>
 		<maven.surefire.version>3.2.5</maven.surefire.version>
 		<jacoco.version>0.8.12</jacoco.version>
-    	<schema.version>4.35.0</schema.version>
+    <schema.version>4.35.0</schema.version>
 		<osgi.core.bundle.version>1.0.0.${maven.build.timestamp}-local-dev</osgi.core.bundle.version>
 		<osgi.core.bundle.headers>Automatic-Module-Name: ${project.groupId}.${package.name}
 			Bundle-Name: ${project.groupId}.${package.name}
@@ -226,7 +226,7 @@
 				<artifactId>jackson-datatype-jsr310</artifactId>
 				<version>${jackson.version}</version>
 			</dependency>
-      <dependency>
+			<dependency>
           <groupId>com.fasterxml</groupId>
           <artifactId>classmate</artifactId>
           <version>1.7.0</version>
