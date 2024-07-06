@@ -87,6 +87,10 @@ public class CoreUtils {
     return UUID.nameUUIDFromBytes(instanceId.getBytes()).toString();
   }
 
+  public static String generateUuid() {
+    return UUID.randomUUID().toString();
+  }
+
   public static String getDateStringForConsole(final Instant date, CoreVariableService variableService) {
     String dateFormat = CoreProperties.getConsoleDateFormat(variableService);
     String timeZone = CoreProperties.getConsoleTimeZone(variableService);

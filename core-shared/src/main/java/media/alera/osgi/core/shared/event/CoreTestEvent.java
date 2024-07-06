@@ -1,32 +1,51 @@
 package media.alera.osgi.core.shared.event;
 
+import java.time.Instant;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import lombok.Builder;
 import lombok.NonNull;
-import media.alera.osgi.core.shared.IJsonTypes;
+import media.alera.osgi.core.shared.CoreUtils;
+import media.alera.osgi.core.shared.JsonTypes;
+import media.alera.osgi.core.shared.JsonUtils;
 
-@Builder(builderMethodName = "internalBuilder", toBuilder = true)
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(Include.NON_EMPTY)
-@JsonTypeName(IJsonTypes.TYPE_EVENT_TEST)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
-@JsonPropertyOrder({ "msg-uid", "msg" })
+@Builder(toBuilder = true)
+@JsonTypeName(JsonTypes.TYPE_EVENT_TEST)
 public record CoreTestEvent(
-    @JsonProperty("msg-uid") @NonNull String id,
-    @NonNull String msg)
-implements IJsonJobEventData {
+    @NonNull @JsonProperty(value = JsonUtils.FIELD_VER, required = true) String ver,
+    @NonNull @JsonProperty(value = JsonUtils.FIELD_EVENT_ID, required = true) String id,
+    @NonNull @JsonProperty(value = JsonUtils.FIELD_TASK_ID, required = true) String taskId,
+    @NonNull @JsonProperty(value = JsonUtils.FIELD_EVENT_TIME) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = CoreUtils.INFO_ISO_DATE_FORMAT, timezone = "GMT") Instant eventTime,
+    @NonNull @JsonProperty(required = true) String msg)
+  implements IJsonEventData {
 
-  public static CoreTestEventBuilder builder(final String msg) {
-    CoreTestEventBuilder internalBuilder = internalBuilder();
-    return internalBuilder.id(UUID.randomUUID().toString()).msg(msg);
+  public static final String CURRENT_VERSION = "1.0.0";
+
+  // public CoreTestEvent(String ver, String id, String taskId, String systemId, Instant eventTime, String msg) {
+  //   this.ver = ver;
+  //   if (id == null) {
+  //     this.id = UUID.randomUUID().toString();
+  //   } else {
+  //     this.id = id;
+  //   }
+  //   if (taskId == null) {
+  //     this.taskId = CoreUtils.generateActivityId(this.id);
+  //   } else {
+  //     this.taskId = taskId;
+  //   }
+  //   this.systemId = systemId;
+  //   this.eventTime = eventTime;
+  //   this.msg = msg;
+  // }
+
+  public static class CoreTestEventBuilder {
+    String ver = CURRENT_VERSION;
+    String id = UUID.randomUUID().toString();
+    String taskId = CoreUtils.generateActivityId(id);
+    Instant eventTime = Instant.now();
   }
 }

@@ -16,6 +16,7 @@ import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
 
 import lombok.extern.slf4j.Slf4j;
+import media.alera.osgi.core.shared.CoreUtils;
 
 @Slf4j
 @Component(immediate = true, service = { EventBus.class, EventHandler.class }, property = { EventConstants.EVENT_TOPIC + "=" + EventTopics.EVENT_TEST_MESSAGE })
@@ -105,7 +106,7 @@ public class EventBus implements EventHandler {
     try {
       this.session = session;
       if (msg != null && !msg.isBlank()) {
-        this.eventBusMessageProducer.sendEvent(EventTopics.EVENT_TEST_MESSAGE, CoreTestEvent.builder(msg).build());
+        this.eventBusMessageProducer.sendEvent(EventTopics.EVENT_TEST_MESSAGE, CoreTestEvent.builder().msg(msg).build());
       } else {
         session.getConsole().println("Message was not set");
       }
@@ -117,7 +118,7 @@ public class EventBus implements EventHandler {
   @Descriptor("Send a test event to a specific queue")
   public void sendTaskTest(final CommandSession session, @Descriptor("the name of the queue") final String destination) {
     try {
-      final CoreTestJob taskEvent = new CoreTestJob("9221aac0-e18c-45b7-9d24-a4a9a88e2201", UUID.randomUUID().toString(), UUID.randomUUID().toString());
+      final CoreTestJob taskEvent = new CoreTestJob(CoreTestJob.CURRENT_VERSION, "9221aac0-e18c-45b7-9d24-a4a9a88e2201", UUID.randomUUID().toString(), CoreUtils.getCurrentInstant());
 
       if (destination != null && !destination.isBlank()) {
         this.eventBusMessageProducer.sendTask(EventTopics.EVENT_TEST_MESSAGE, destination, taskEvent);
