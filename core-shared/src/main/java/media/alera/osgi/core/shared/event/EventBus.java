@@ -6,7 +6,9 @@ import java.util.UUID;
 import org.apache.felix.service.command.CommandSession;
 import org.apache.felix.service.command.Descriptor;
 import org.apache.felix.service.command.annotations.GogoCommand;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.osgi.service.component.annotations.ReferencePolicy;
@@ -16,6 +18,7 @@ import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
 
 import lombok.extern.slf4j.Slf4j;
+import media.alera.osgi.core.shared.CoreSystemStatus;
 import media.alera.osgi.core.shared.CoreUtils;
 
 @Slf4j
@@ -34,6 +37,16 @@ public class EventBus implements EventHandler {
   private EventAdmin localEventAdmin;
 
   private CommandSession session = null;
+
+  @Activate
+  public void activate() {
+    log.debug("Eventbus Activated");
+  }
+
+  @Deactivate
+  public void deactivate() {
+    log.debug("Eventbus Deactivated");
+  }
 
   @Reference(cardinality = ReferenceCardinality.OPTIONAL, policy = ReferencePolicy.DYNAMIC)
   public void setEventBusMessageProducer(final EventBusMessageProducer messageProducer) {

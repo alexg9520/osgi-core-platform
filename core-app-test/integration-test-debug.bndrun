@@ -1,0 +1,18 @@
+-include: ~integration-test.bndrun
+
+-standalone: ${index}
+
+-runproperties.core-app-debug: \
+	osgi.console.enable.builtin=false,\n\
+	osgi.console=
+
+-runsystemcapabilities: ${native_capability}
+
+-runvm.core-app-debug: \
+	-Xdebug,\n\
+	'-Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=y'
+
+-runrequires.core-app-debug: \
+	bnd.identity;id='org.apache.felix.webconsole',\
+	bnd.identity;id='org.apache.felix.configadmin'
+	

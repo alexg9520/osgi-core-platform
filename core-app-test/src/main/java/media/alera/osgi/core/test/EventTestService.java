@@ -12,12 +12,12 @@ import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
 
 import lombok.extern.slf4j.Slf4j;
-import media.alera.osgi.core.shared.eventbus.EventTopics;
+import media.alera.osgi.core.shared.event.EventTopics;
 
 @Slf4j
 @Component(immediate = true, enabled = true, service = { EventTestService.class, EventHandler.class }, property = {
-    EventConstants.EVENT_TOPIC + "=" + EventTopics.EVENTS,
-    EventConstants.EVENT_TOPIC + "=" + EventTopics.TASK })
+    EventConstants.EVENT_TOPIC + "=" + EventTopics.EVENT_ACTIVITY + "/*",
+    EventConstants.EVENT_TOPIC + "=" + EventTopics.EVENT_TASK + "/*", })
 public class EventTestService implements EventHandler {
 
   List<Object> eventList = new ArrayList<>();
@@ -25,6 +25,7 @@ public class EventTestService implements EventHandler {
   @Override
   public void handleEvent(final Event event) {
     Object eventObj = event.getProperty(EventTopics.PARAM_EVENT_MSG_DATA);
+    log.debug("Received message on eventbus from topic '{}'", event.getTopic());;
     if (eventObj instanceof String) {
       log.info("EventBus message: " + (String) eventObj);
     }
