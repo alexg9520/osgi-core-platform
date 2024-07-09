@@ -126,7 +126,7 @@ Test-Cases: ${classes;CONCRETE;PUBLIC;NAMED;*Test}
 					<includeJar>true</includeJar>
 				</configuration>
 			</plugin>
-			<plugin>
+			<!-- <plugin>
 				<groupId>biz.aQute.bnd</groupId>
 				<artifactId>bnd-testing-maven-plugin</artifactId>
 				<configuration>
@@ -135,7 +135,7 @@ Test-Cases: ${classes;CONCRETE;PUBLIC;NAMED;*Test}
 						<bndrun>integration-test-debug.bndrun</bndrun>
 					</bndruns>
 				</configuration>
-			</plugin>
+			</plugin> -->
 			<plugin>
 				<groupId>biz.aQute.bnd</groupId>
 				<artifactId>bnd-testing-maven-plugin</artifactId>

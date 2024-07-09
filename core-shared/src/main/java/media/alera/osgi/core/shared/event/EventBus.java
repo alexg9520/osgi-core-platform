@@ -18,7 +18,6 @@ import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
 
 import lombok.extern.slf4j.Slf4j;
-import media.alera.osgi.core.shared.CoreSystemStatus;
 import media.alera.osgi.core.shared.CoreUtils;
 
 @Slf4j

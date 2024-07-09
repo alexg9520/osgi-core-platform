@@ -39,6 +39,7 @@ public class CoreOSGiIntegrationTest {
 
   @Test
   public void testEventBus() throws InterruptedException {
+    log.info("Event Bus Testing Started");
     CoreActivityEvent event = CoreActivityEvent.builder().status(CoreSystemStatus.STARTED).statusMsg("Event Bus Started").build();
     eventBus.postEvent(EventTopics.EVENT_ACTIVITY + "/test-service", event);
     Thread.sleep(1000);
@@ -51,6 +52,7 @@ public class CoreOSGiIntegrationTest {
       }
     }
     assertTrue(found);
+    log.info("Event Bus Test Complete");
   }
 
   private static <T> T getService(final BundleContext bc, final Class<T> clazz) {
