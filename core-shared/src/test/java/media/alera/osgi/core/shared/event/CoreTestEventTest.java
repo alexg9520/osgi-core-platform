@@ -76,7 +76,7 @@ class CoreTestEventTest {
 
   @Test
   void jsonToObjects() throws CoreException {
-    CoreTestEvent event = JSON_OBJECT_FACTORY.fromString(JSON_CORE_ACTIVITY_EVENT, CoreTestEvent.class);
+    CoreTestEvent event = (CoreTestEvent) JSON_OBJECT_FACTORY.fromString(JSON_CORE_ACTIVITY_EVENT, IJsonEventData.class);
     assertEquals(this.coreTestEventExpected, event);
   }
 

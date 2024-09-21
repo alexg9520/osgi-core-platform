@@ -107,7 +107,7 @@ public class ReceiveEventEclipseJob extends AbstractEclipseJob<AutoCloseable> im
 
   private void postToLocalEventBus(final String text, final String topic, final String eventSourceId) throws CoreException {
     if (this.localEventAdmin != null) {
-      IJsonJobEventData data = this.factory.fromString(text, IJsonJobEventData.class);
+      IJsonEventData data = this.factory.fromString(text, IJsonEventData.class);
       this.localEventAdmin.postEvent(EventBus.createEvent(topic, data, eventSourceId));
     } else {
       log.warn("Local event bus is not ready in Event Consumer");

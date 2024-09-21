@@ -6,9 +6,9 @@ import media.alera.osgi.core.init.CoreVariableService;
 
 public class EventBusProperties {
 
-  public static final String CORE_DEFAULT_MESSAGE_TOPIC_NAME = "media.alera.osgi.core.events";
+  public static final String CORE_DEFAULT_MESSAGE_TOPIC_NAME = "media.alera.osgi.core.events.notification";
 
-  public static final String CORE_DEFAULT_CORE_DESTINATION_QUEUE_NAME = "media.alera.osgi.core.events.process";
+  public static final String CORE_DEFAULT_CORE_DESTINATION_QUEUE_NAME = "media.alera.osgi.core.events.job";
 
   public static final String CORE_ACTIVEMQ_EVENTBUS_CONNECTION_PORT = "CORE_ACTIVEMQ_EVENTBUS_CONNECTION_PORT";
   public static final String CORE_ACTIVEMQ_EVENTBUS_CONNECTION_SERVER = "CORE_ACTIVEMQ_EVENTBUS_CONNECTION_SERVER";
@@ -30,7 +30,7 @@ public class EventBusProperties {
     String port = variableService.getEnvSystemProperty(EventBusProperties.CORE_ACTIVEMQ_EVENTBUS_CONNECTION_PORT, "61616");
     String server = variableService.getEnvSystemProperty(EventBusProperties.CORE_ACTIVEMQ_EVENTBUS_CONNECTION_SERVER, "localhost");
     String type = variableService.getEnvSystemProperty(EventBusProperties.CORE_ACTIVEMQ_EVENTBUS_CONNECTION_TYPE, "tcp");
-    String options = variableService.getEnvSystemProperty(EventBusProperties.CORE_ACTIVEMQ_EVENTBUS_CONNECTION_OPTIONS, "sslEnabled=true&socket.verifyHostName=true");
+    String options = variableService.getEnvSystemProperty(EventBusProperties.CORE_ACTIVEMQ_EVENTBUS_CONNECTION_OPTIONS, "");
 
     String brokerUrl = type + "://" + server + ":" + port;
     if (!options.isBlank()) {
