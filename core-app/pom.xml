@@ -11,7 +11,7 @@
 		<package.name>app</package.name>
 		<sonar.skip>true</sonar.skip>
 	</properties>
-	<name>Core OSGi Application</name>
+	<name>OSGi Core Application</name>
 	<artifactId>core-app</artifactId>
 	<packaging>pom</packaging>
 	<profiles>

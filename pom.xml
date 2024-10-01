@@ -21,11 +21,11 @@
 		<slf4j.version>2.0.13</slf4j.version>
 		<logback.version>1.4.14</logback.version>
 		<junit-jupiter.version>5.10.2</junit-jupiter.version>
-    	<junit-platform.version>1.10.2</junit-platform.version>
+    <junit-platform.version>1.10.2</junit-platform.version>
 		<assertj.version>3.25.3</assertj.version>
 		<maven.surefire.version>3.2.5</maven.surefire.version>
 		<jacoco.version>0.8.12</jacoco.version>
-    	<schema.version>4.35.0</schema.version>
+    <schema.version>4.35.0</schema.version>
 		<osgi.core.bundle.version>1.0.0.${maven.build.timestamp}-local-dev</osgi.core.bundle.version>
 		<osgi.core.bundle.headers>Automatic-Module-Name: ${project.groupId}.${package.name}
 			Bundle-Name: ${project.groupId}.${package.name}
@@ -43,6 +43,7 @@
 		<module>core-init</module>
 		<module>core-shared</module>
 		<module>core-app</module>
+    <module>core-app-test</module>
 	</modules>
 	<profiles>
 		<profile>
@@ -210,6 +211,11 @@
           <artifactId>jackson-core</artifactId>
           <version>${jackson.version}</version>
       </dependency>
+      <dependency>
+          <groupId>org.eclipse.platform</groupId>
+          <artifactId>org.eclipse.equinox.common</artifactId>
+          <version>3.19.100</version>
+      </dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-databind</artifactId>
@@ -220,7 +226,7 @@
 				<artifactId>jackson-datatype-jsr310</artifactId>
 				<version>${jackson.version}</version>
 			</dependency>
-      <dependency>
+			<dependency>
           <groupId>com.fasterxml</groupId>
           <artifactId>classmate</artifactId>
           <version>1.7.0</version>
@@ -319,7 +325,7 @@
 			<dependency>
 				<groupId>jakarta.jms</groupId>
 				<artifactId>jakarta.jms-api</artifactId>
-				<version>2.0.3</version>
+				<version>3.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.aries.spec</groupId>
@@ -630,6 +636,16 @@ ${osgi.core.bundle.headers}
 						</execution>
 					</executions>
 				</plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.13.0</version>
+          <configuration>
+            <compilerArgs>
+              <arg>-proc:full</arg>
+            </compilerArgs>
+          </configuration>
+        </plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>

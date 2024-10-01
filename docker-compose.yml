@@ -1,0 +1,86 @@
+services:  
+
+  artemis:
+    image: apache/activemq-artemis:${ARTEMIS_DOCKER_TAG:-latest}
+    container_name: artemis
+    hostname: artemis-internal
+    restart: unless-stopped
+    # entrypoint: sleep 9999999999999
+    # ports:
+    #   - "8161:8161"
+    #   - "61616:61616"
+    #   - "18080:18080"
+    environment:
+      ANONYMOUS_LOGIN: "false"
+      ARTEMIS_USER: "${AMQ_USERNAME:-artemis}"
+      ARTEMIS_PASSWORD: "${AMQ_PASSWORD:-artemis}"
+      # ARTEMIS_ACCEPTOR: "tcp://0.0.0.0:${ARTEMIS_BROKER_PORT:-61616}?sslEnabled=true;trustStorePath=/var/lib/artemis-instance/certs/$${ts.file};trustStorePassword=$${ts.password};keyStorePath=/var/lib/artemis-instance/certs/$${ks.file};keyStorePassword=$${ks.password};tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;amqpMinLargeMessageSize=102400;protocols=CORE,AMQP,STOMP,HORNETQ,MQTT,OPENWIRE;useEpoll=true;amqpCredits=1000;amqpLowCredits=300;amqpDuplicateDetection=true;supportAdvisory=false;suppressInternalManagementObjects=false;needClientAuth=$${client.auth}"
+      # ARTEMIS_REST_ACCEPTOR: "vm://0?securityDomain=invm"
+      # ARTEMIS_LOGIN_CONFIG: |-
+      #   invm {
+      #       org.apache.activemq.artemis.spi.core.security.jaas.GuestLoginModule required
+      #           debug=true
+      #           org.apache.activemq.jaas.guest.user="restUser"
+      #           org.apache.activemq.jaas.guest.role="amq";
+      #   };
+      # DEBUG_ARGS: "-javaagent:/var/lib/artemis-instance/jmx/jmx_prometheus_javaagent-0.16.1.jar=${JMX_EXPORTER_PORT:-18080}:/var/lib/artemis-instance/jmx/config.yml -Dcom.sun.management.jmxremote -Dks.password=${ARTEMIS_KS_PASSWORD} -Dks.file=${ARTEMIS_KS_FILE} -Dts.password=${ARTEMIS_TS_PASSWORD} -Dts.file=${ARTEMIS_TS_FILE} -Dclient.auth=${ARTEMIS_CLIENT_AUTH:-true}"
+    volumes:
+      - artemis:/var/lib/artemis-instance
+      # - ./${ARTEMIS_CERTS_PATH:-certs}/:/var/lib/artemis-instance/certs
+      # - ./resources/artemis/jmx:/var/lib/artemis-instance/jmx
+      # - ./resources/artemis/web:/var/lib/artemis-instance/web
+#      - ./resources/artemis/etc/artemisAcceptor:/opt/activemq-artemis/bin/artemisAcceptor
+    depends_on:
+       - nginx
+    profiles:
+      - artemis
+
+  nginx:
+    container_name: nginx
+    image: nginx:stable-alpine
+    restart: unless-stopped
+    hostname: "${NGINX_HOSTNAME:-artemis}"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/includes/:/etc/nginx/includes/
+      - ./nginx/templates/:/etc/nginx/templates/
+      # - ./nginx/conf/:/etc/nginx/conf/
+      - ./${NGINX_CERTS_PATH:-certs}:/etc/ssl/certs/nginx/
+    environment:
+      NGINX_HTTP_MAX_BODY_SIZE: ${NGINX_HTTP_MAX_BODY_SIZE:-10M}
+      NGINX_PROXY_TIMEOUT: ${NGINX_PROXY_TIMEOUT:-300}
+      NGINX_ARTEMIS_HTTP_PROXY: |-
+          server {
+            listen ${NGINX_JMX_PROXY_PORT:-18080} ssl;
+            listen ${NGINX_ARTEMIS_ADMIN_PROXY_PORT:-8161} ssl;
+            http2 on;
+            server_name ${ARTEMIS_SERVER_HOST:-artemis};
+            ssl_certificate /etc/ssl/certs/nginx/${NGINX_ARTEMIS_CERT:-artemis-localhost.crt};
+            ssl_certificate_key /etc/ssl/certs/nginx/${NGINX_ARTEMIS_KEY:-artemis-localhost.key};
+            ssl_password_file /etc/ssl/certs/nginx/${NGINX_ARTEMIS_PASSWORD_FILE:-artemis-localhost.pwd};
+            ssl_client_certificate /etc/ssl/certs/nginx/${NGINX_CA_CERT:-ca.crt};
+            ssl_verify_client ${NGINX_ARTEMIS_VERIFY_CLIENT:-off};
+            include /etc/nginx/includes/ssl.conf;
+            location / {
+                resolver 127.0.0.11;
+                include /etc/nginx/includes/proxy.conf;
+                proxy_pass http://artemis-internal:${ARTEMIS_ADMIN_PORT:-8161};
+            }
+            access_log off;
+            error_log /var/log/nginx/error.log error;
+          }
+      NGINX_ARTEMIS_STREAM_PROXY: |-
+          server {
+            listen ${NGINX_ARTEMIS_BROKER_PROXY_PORT:-61616};
+            set $$upstream artemis-internal;
+            proxy_pass $$upstream:${ARTEMIS_BROKER_PORT:-61616};
+          }
+    ports:
+      - "${NGINX_ARTEMIS_BROKER_PROXY_PORT:-61616}:${NGINX_ARTEMIS_BROKER_PROXY_PORT:-61616}"             # Artemis JMS
+      - "${NGINX_ARTEMIS_ADMIN_PROXY_PORT:-8161}:${NGINX_ARTEMIS_ADMIN_PROXY_PORT:-8161}"                 # Artemis Web Admin
+      # - "127.0.0.1:${NGINX_STAT_DOCKER_PORT:-9082}:${NGINX_STAT_PORT:-9082}"  # nginx status
+    profiles:
+      - artemis
+
+volumes:
+  artemis:

@@ -74,7 +74,6 @@ public class CoreVariableService {
       //"media.alera.osgi.core.env"
       DotenvBuilder builder = Dotenv.configure();
 
-      System.out.println("TESTING 1 2 3 4 5 6 7 8 9 10 11 12 13...");
       boolean requireEnv = false;
       String envFolder = null;
       String envFile = null;
@@ -96,7 +95,7 @@ public class CoreVariableService {
       IPath confFolder = getConfFolder();
 
       // Web Server Properties
-      setPropertyForEnv(this.dotenv, "org.osgi.service.http.port.secure", CORE_WEB_HTTPS_PORT, "443");
+      setPropertyForEnv(this.dotenv, "org.osgi.service.http.port.secure", CORE_WEB_HTTPS_PORT, "8443");
       setPropertyForEnv(this.dotenv, "org.osgi.service.http.port", CORE_WEB_HTTP_PORT);
       setPropertyForEnv(this.dotenv, "org.apache.felix.https.enable", CORE_WEB_SECURE, "true");
       setPropertyForEnv(this.dotenv, "org.apache.felix.https.keystore", CORE_WEB_KEYSTORE_FILE);

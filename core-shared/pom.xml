@@ -11,6 +11,11 @@
 	    <package.name>shared</package.name>
     </properties>
 	<dependencies>
+    <dependency>
+		    <groupId>media.alera.osgi.core</groupId>
+		    <artifactId>core-init</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 		    <groupId>org.osgi</groupId>
 		    <artifactId>org.osgi.service.event</artifactId>
@@ -42,7 +47,7 @@
 		</dependency>
 		<dependency>
 			<groupId>jakarta.jms</groupId>
-		    <artifactId>jakarta.jms-api</artifactId>
+      <artifactId>jakarta.jms-api</artifactId>
 		</dependency>
 		<dependency>
 		    <groupId>com.fasterxml.jackson.datatype</groupId>
@@ -193,12 +198,25 @@
         <artifactId>bcpkix-jdk18on</artifactId>
         <version>1.78</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-client</artifactId>
+      <version>6.1.2</version>
+    </dependency>    
 	</dependencies>
 	  <build>
     <plugins>
       <plugin>
         <groupId>biz.aQute.bnd</groupId>
         <artifactId>bnd-maven-plugin</artifactId>
+        <configuration>
+          <bnd><![CDATA[
+${osgi.core.bundle.headers}
+-sources: false
+Include-Resource: lib/jsonschema-generator-${schema.version}.jar,lib/jsonschema-module-jackson-${schema.version}.jar
+Bundle-ClassPath: .,jsonschema-generator-${schema.version}.jar,jsonschema-module-jackson-${schema.version}.jar
+          ]]></bnd>
+				</configuration>
       </plugin>
     </plugins>
   </build>
