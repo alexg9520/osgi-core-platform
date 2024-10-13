@@ -49,7 +49,7 @@ jobs:
         ECR_REPOSITORY: media/alera/registry
         IMAGE_TAG: osgi-core-app:$(date +%s)
       run: |
-        docker build --t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
