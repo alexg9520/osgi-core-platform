@@ -19,8 +19,6 @@ import media.alera.osgi.core.shared.web.EnvSystemProperty;
 
 /**
  * Variable Service used to retrieve .env variabels that are set for the application
- *
- * Do not use \@SLF4J annotation as that will cause the logger to load too early
  */
 @JaxrsResource
 @Path("variables")
