@@ -4,3 +4,4 @@ core-app/conf/equinox_authorized_keys
 core-app-test/conf/equinox_authorized_keys
 core-app-test/conf/hostkey.ser
 core-app-test/conf/org.eclipse.equinox.console.authentication.config
+**/.env
