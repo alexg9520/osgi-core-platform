@@ -1,0 +1,2 @@
+# web service config.
+${NGINX_ARTEMIS_STREAM_PROXY}
