@@ -44,6 +44,7 @@
 		<module>core-shared</module>
 		<module>core-app</module>
     <module>core-app-test</module>
+    <module>core-services</module>
 	</modules>
 	<profiles>
 		<profile>
