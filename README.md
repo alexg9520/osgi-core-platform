@@ -1,6 +1,11 @@
 # OSGi Core
 
-OSGi Core is used to setup a framework for running an OSGi application
+OSGi Core is used to setup a framework for running an Java application using OSGi. Currently supports:
+- `ssh console`
+- `connectiong to ActiveMQ for events`
+- `using .env file for variables`
+- `json to pojo conversion using annotations`
+- `rest services via annotations`
 
 ### Build Commands
 - `mvn clean verify`
