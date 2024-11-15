@@ -19,6 +19,8 @@ import media.alera.osgi.core.shared.web.EnvSystemProperty;
 
 /**
  * Variable Service used to retrieve .env variabels that are set for the application
+ * 
+ * Deafults to https://<server_name>:<port>/variables/property/{property_name}
  */
 @JaxrsResource
 @Path("variables")
@@ -45,5 +47,4 @@ public class WebVariableService {
     return Response.ok(propery).build();
   }
 
-  
 }
