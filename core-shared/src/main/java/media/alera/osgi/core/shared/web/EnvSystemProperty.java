@@ -1,7 +1,5 @@
 package media.alera.osgi.core.shared.web;
 
-import java.util.UUID;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
