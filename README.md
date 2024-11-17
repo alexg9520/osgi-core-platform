@@ -1,6 +1,6 @@
 # OSGi Core
 
-OSGi Core is used to setup a framework for running an Java application using OSGi. Currently supports:
+OSGi Core is used to setup a framework for running a Java application using OSGi. Currently supports:
 - `ssh console`
 - `connecting to ActiveMQ for events`
 - `using .env file for variables`
@@ -26,6 +26,7 @@ OSGi Core is used to setup a framework for running an Java application using OSG
 
 #### SSH to Console
 `ssh localhost -p 2222 -l <user_id>`
+`ssh -i ~/.ssh/<key> localhost -p 2222`
 
 #### Common Commands
 - `SCOPE='felix:*'` (set the scope for commands to default to felix)

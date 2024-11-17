@@ -14,16 +14,6 @@ services:
       ANONYMOUS_LOGIN: "false"
       ARTEMIS_USER: "${AMQ_USERNAME:-artemis}"
       ARTEMIS_PASSWORD: "${AMQ_PASSWORD:-artemis}"
-      # ARTEMIS_ACCEPTOR: "tcp://0.0.0.0:${ARTEMIS_BROKER_PORT:-61616}?sslEnabled=true;trustStorePath=/var/lib/artemis-instance/certs/$${ts.file};trustStorePassword=$${ts.password};keyStorePath=/var/lib/artemis-instance/certs/$${ks.file};keyStorePassword=$${ks.password};tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;amqpMinLargeMessageSize=102400;protocols=CORE,AMQP,STOMP,HORNETQ,MQTT,OPENWIRE;useEpoll=true;amqpCredits=1000;amqpLowCredits=300;amqpDuplicateDetection=true;supportAdvisory=false;suppressInternalManagementObjects=false;needClientAuth=$${client.auth}"
-      # ARTEMIS_REST_ACCEPTOR: "vm://0?securityDomain=invm"
-      # ARTEMIS_LOGIN_CONFIG: |-
-      #   invm {
-      #       org.apache.activemq.artemis.spi.core.security.jaas.GuestLoginModule required
-      #           debug=true
-      #           org.apache.activemq.jaas.guest.user="restUser"
-      #           org.apache.activemq.jaas.guest.role="amq";
-      #   };
-      # DEBUG_ARGS: "-javaagent:/var/lib/artemis-instance/jmx/jmx_prometheus_javaagent-0.16.1.jar=${JMX_EXPORTER_PORT:-18080}:/var/lib/artemis-instance/jmx/config.yml -Dcom.sun.management.jmxremote -Dks.password=${ARTEMIS_KS_PASSWORD} -Dks.file=${ARTEMIS_KS_FILE} -Dts.password=${ARTEMIS_TS_PASSWORD} -Dts.file=${ARTEMIS_TS_FILE} -Dclient.auth=${ARTEMIS_CLIENT_AUTH:-true}"
     volumes:
       - artemis:/var/lib/artemis-instance
       # - ./${ARTEMIS_CERTS_PATH:-certs}/:/var/lib/artemis-instance/certs
