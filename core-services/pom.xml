@@ -41,6 +41,42 @@
 		    <groupId>org.apache.servicemix.specs</groupId>
 		    <artifactId>org.apache.servicemix.specs.jaxrs-api-2.1</artifactId>
 		</dependency>
+		<!-- Test Dependencies -->
+		<dependency>
+		    <groupId>org.junit.jupiter</groupId>
+		    <artifactId>junit-jupiter-api</artifactId>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.junit.jupiter</groupId>
+		    <artifactId>junit-jupiter-engine</artifactId>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-junit-jupiter</artifactId>
+		    <scope>test</scope>
+		</dependency>
+		<!-- JAX-RS 2.1 API (javax.ws.rs) matching the OSGi imports -->
+		<dependency>
+		    <groupId>javax.ws.rs</groupId>
+		    <artifactId>javax.ws.rs-api</artifactId>
+		    <version>2.1.1</version>
+		    <scope>test</scope>
+		</dependency>
+		<!-- Jersey 2.x implementation for testing (matches javax.ws.rs API) -->
+		<dependency>
+		    <groupId>org.glassfish.jersey.core</groupId>
+		    <artifactId>jersey-common</artifactId>
+		    <version>2.40</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>io.github.cdimascio</groupId>
+		    <artifactId>dotenv-java</artifactId>
+		    <version>3.2.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	  <build>
     <plugins>

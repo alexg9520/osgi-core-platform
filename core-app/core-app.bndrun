@@ -28,7 +28,7 @@ index: target/index.xml;name="media.alera.osgi.core.app"
 #	org.apache.felix.gogo.*;startlevel=1,\
 
 -runfw: org.eclipse.osgi
--runee: JavaSE-21
+-runee: JavaSE-25
 -dsannotations-options: norequirements
 -runprovidedcapabilities: ${native_capability}
 

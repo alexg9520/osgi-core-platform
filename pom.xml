@@ -12,8 +12,8 @@
 		<name.aws>aws</name.aws>
 		<embedded.scope>compile</embedded.scope>
 		<maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
-		<maven.compiler.source>21</maven.compiler.source>
-		<maven.compiler.target>21</maven.compiler.target>
+		<maven.compiler.source>25</maven.compiler.source>
+		<maven.compiler.target>25</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<bnd.version>7.0.0</bnd.version>
 		<dependency-check-maven.version>6.0.0</dependency-check-maven.version>
@@ -21,11 +21,11 @@
 		<slf4j.version>2.0.13</slf4j.version>
 		<logback.version>1.4.14</logback.version>
 		<junit-jupiter.version>5.10.2</junit-jupiter.version>
-    <junit-platform.version>1.10.2</junit-platform.version>
+    	<junit-platform.version>1.10.2</junit-platform.version>
 		<assertj.version>3.25.3</assertj.version>
 		<maven.surefire.version>3.2.5</maven.surefire.version>
 		<jacoco.version>0.8.12</jacoco.version>
-    <schema.version>4.35.0</schema.version>
+    	<schema.version>4.35.0</schema.version>
 		<osgi.core.bundle.version>1.0.0.${maven.build.timestamp}-local-dev</osgi.core.bundle.version>
 		<osgi.core.bundle.headers>Automatic-Module-Name: ${project.groupId}.${package.name}
 			Bundle-Name: ${project.groupId}.${package.name}
@@ -305,7 +305,7 @@
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
-				<version>1.18.32</version>
+				<version>1.18.42</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
@@ -400,7 +400,7 @@
 			<dependency>
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-junit-jupiter</artifactId>
-				<version>5.11.0</version>
+				<version>5.20.0</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
@@ -615,7 +615,7 @@ ${osgi.core.bundle.headers}
 					<configuration>
 						<toolchains>
 							<jdk>
-								<version>21</version>
+								<version>25</version>
 							</jdk>
 						</toolchains>
 					</configuration>
@@ -663,10 +663,11 @@ ${osgi.core.bundle.headers}
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${maven.surefire.version}</version>
-        <configuration>
-          <!-- Build, even if tests fail -->
-          <testFailureIgnore>true</testFailureIgnore>
-        </configuration>
+				<configuration>
+					<!-- Build, even if tests fail -->
+					<testFailureIgnore>true</testFailureIgnore>
+        			<argLine>-Dnet.bytebuddy.experimental=true</argLine>
+				</configuration>
 				<dependencies>
 					<dependency>
 						<groupId>org.junit.jupiter</groupId>

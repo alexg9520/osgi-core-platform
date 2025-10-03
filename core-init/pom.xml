@@ -9,7 +9,7 @@
 	<artifactId>core-init</artifactId>
 	<properties>
 	    <package.name>init</package.name>
-		<dotenv.version>2.2.4</dotenv.version>
+		<dotenv.version>3.2.0</dotenv.version>
     </properties>
 	<dependencies>
 		<dependency>
